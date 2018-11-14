@@ -11,5 +11,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ProductCategoryRepository extends JpaRepository<ProductCategory,Integer> {
-
+    /**
+     * 根据类目名称查询
+     */
+    public ProductCategory findByCategoryNameLike(String string);
 }

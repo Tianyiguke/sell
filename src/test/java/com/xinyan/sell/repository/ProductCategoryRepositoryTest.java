@@ -7,6 +7,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -38,9 +43,23 @@ public class ProductCategoryRepositoryTest {
         ProductCategory category = repository.save(productCategory);
         Assert.assertNotNull("添加商品类目",category);
     }
+
+    /**
+     * 自定义方法
+     */
     @Test
     public void findByCategoryNameLikeTest(){
         ProductCategory productCategory = repository.findByCategoryNameLike("%女%");
         System.out.println(productCategory);
     }
+
+    /**
+     * 自定义方法
+     */
+    @Test
+    public void findByCategoryTypeInTest(){
+        List<ProductCategory> productCategoryList = repository.findByCategoryTypeIn(Arrays.asList(6, 7, 8));
+        Assert.assertNotNull("根据多个类型查询类目", productCategoryList);
+    }
+
 }

@@ -4,8 +4,6 @@ import com.xinyan.sell.po.ProductCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 /**
  * Administrator
  * 2018/11/14 0014
@@ -13,11 +11,8 @@ import java.util.List;
  */
 @Repository
 public interface ProductCategoryRepository extends JpaRepository<ProductCategory,Integer> {
-
     /**
-     * 类目类型查询
-     * @param categoryTypeList
-     * @return
+     * 根据类目名称查询
      */
-    List<ProductCategory> findByCategoryTypeIn(List<Integer> categoryTypeList);
+    public ProductCategory findByCategoryNameLike(String string);
 }

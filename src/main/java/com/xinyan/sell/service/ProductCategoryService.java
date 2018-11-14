@@ -6,8 +6,10 @@ import java.util.List;
 
 /**
  * Administrator
- * 2018/11/14 
+ * 2018/11/14
  * 类目 业务接口
+ *
+ * 8888
  */
 public interface ProductCategoryService {
 

@@ -32,13 +32,19 @@ public class ProductInfoRepositoryTest {
     public void save(){
         ProductInfo productInfo = new ProductInfo();
         productInfo.setProductId(UUID.randomUUID().toString().replace("-",""));
-        productInfo.setProductName("农家一碗香");
-        productInfo.setProductPrice(new BigDecimal("15"));
-        productInfo.setProductStock(20);
-        productInfo.setProductDescription("最好吃最正宗的郝式农家一碗香");
-        productInfo.setProductIcon("http://img5.imgtn.bdimg.com/it/u=2243535999,2461212792&fm=26&gp=0.jpg");
+        productInfo.setProductName("老北京烤鸭");
+        productInfo.setProductPrice(new BigDecimal("30"));
+        productInfo.setProductStock(10);
+        productInfo.setProductDescription("最好吃最正宗的郝式老北京烤鸭");
+        productInfo.setProductIcon("https://f11.baidu.com/it/u=1283627459,2832815830&fm=72");
         productInfo.setCategoryType(1);
         repository.save(productInfo);
+    }
+
+    @Test
+    public void findByProductStatus(){
+        List<ProductInfo> productInfoList = repository.findByProductStatus(1);
+        Assert.assertNotNull("未找到商品",productInfoList);
     }
 
 

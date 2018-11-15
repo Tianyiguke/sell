@@ -41,7 +41,7 @@ public class ProductInfo {
     /*商品小图*/
     private String productIcon;
 
-    /*商品状态*/
+    /*商品状态 0: 上架  1：下架*/
     private Integer productStatus = 0;
 
     /*类目编号*/

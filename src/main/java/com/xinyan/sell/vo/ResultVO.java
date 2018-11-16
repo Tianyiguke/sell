@@ -1,6 +1,7 @@
 package com.xinyan.sell.vo;
 
 import lombok.Data;
+import org.springframework.validation.BindingResult;
 
 /**
  * 不夏
@@ -12,6 +13,7 @@ public class ResultVO<T> {
 
     /*返回状态码*/
     private Integer code;
+
 
     /*返回信息*/
     private String msg;

@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Data
 @Table(name="order_detail")
@@ -27,11 +28,13 @@ public class OrderDetail {
     private String productName;
 
     /* 商品单价 */
-    private String productPirce;
+    private String productPrice;
 
     /* 商品数量 */
-    private String productQuantity;
+    private Integer productQuantity;
 
     /* 商品图标 */
     private String productIcon;
+
+    private Date createTime;
 }

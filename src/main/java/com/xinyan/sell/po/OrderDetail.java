@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -28,7 +29,7 @@ public class OrderDetail {
     private String productName;
 
     /* 商品单价 */
-    private String productPrice;
+    private BigDecimal productPrice;
 
     /* 商品数量 */
     private Integer productQuantity;
@@ -36,5 +37,6 @@ public class OrderDetail {
     /* 商品图标 */
     private String productIcon;
 
+    /* 创建时间 */
     private Date createTime;
 }

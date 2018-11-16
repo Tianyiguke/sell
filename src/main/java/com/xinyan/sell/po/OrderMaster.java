@@ -6,6 +6,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -31,13 +32,13 @@ public class OrderMaster {
     private String buyerOpenid;
 
     /* 订单总金额 */
-    private String orderAmount;
+    private BigDecimal orderAmount;
 
     /* 订单状态 */
-    private String orderStatus;
+    private Integer orderStatus;
 
     /* 支付状态 */
-    private String payStatus;
+    private Integer payStatus;
 
     /* 创建时间 */
     private Date createTime;

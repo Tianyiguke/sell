@@ -7,6 +7,7 @@ import com.xinyan.sell.repository.OrderDetailRepository;
 import com.xinyan.sell.repository.OrderMasterRepository;
 import com.xinyan.sell.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * Administrator
  * 2018/11/16 19:01
  */
+@Service
 public class OrderServiceImpl implements OrderService {
     @Autowired
     OrderMasterRepository orderMasterRepository;

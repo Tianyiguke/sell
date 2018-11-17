@@ -65,6 +65,6 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public List<OrderDetail> findDetailByOrderId(String orderId) {
-        return null;
+        return orderDetailRepository.findOrderDetailByOrderId(orderId);
     }
 }

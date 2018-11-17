@@ -26,7 +26,7 @@ public class OrderMaster {
     private String buyerPhone;
 
     /* 买家地址 */
-    private String buyerAdress;
+    private String buyerAddress;
 
     /* 买家微信openid */
     private String buyerOpenid;

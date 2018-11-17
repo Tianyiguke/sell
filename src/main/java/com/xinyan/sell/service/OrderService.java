@@ -15,7 +15,7 @@ public interface OrderService {
      * 创建订单
      * @param orderDTO
      */
-    void create(OrderDTO orderDTO);
+    OrderDTO create(OrderDTO orderDTO);
 
     /**
      * 订单列表

@@ -3,31 +3,51 @@ package com.xinyan.sell.service.impl;
 import com.xinyan.sell.dto.OrderDTO;
 import com.xinyan.sell.po.OrderDetail;
 import com.xinyan.sell.po.OrderMaster;
+import com.xinyan.sell.po.ProductInfo;
 import com.xinyan.sell.repository.OrderDetailRepository;
 import com.xinyan.sell.repository.OrderMasterRepository;
+import com.xinyan.sell.repository.ProductInfoRepository;
 import com.xinyan.sell.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Administrator
  * 2018/11/16 19:01
  */
+@Service
 public class OrderServiceImpl implements OrderService {
     @Autowired
-    OrderMasterRepository orderMasterRepository;
+    private OrderMasterRepository orderMasterRepository;
 
     @Autowired
-    OrderDetailRepository orderDetailRepository;
+    private OrderDetailRepository orderDetailRepository;
+
+    @Autowired
+    private ProductInfoRepository productInfoRepository;
 
     /**
      * 创建订单
      * @param orderDTO
      */
     @Override
-    public void create(OrderDTO orderDTO) {
+    public OrderDTO create(OrderDTO orderDTO) {
 
+
+
+        orderMasterRepository.save(orderDTO.getOrderMaster());
+        orderDetailRepository.save(orderDTO.getOrderDetailList());
+
+        for (OrderDetail orderDetail: orderDTO.getOrderDetailList()
+             ) {
+             ProductInfo productInfo = productInfoRepository.findOne(orderDetail.getProductId());
+             productInfo.setProductStock(productInfo.getProductStock()-orderDetail.getProductQuantity());
+             productInfoRepository.save(productInfo);
+        }
+        return orderDTO;
     }
 
     /**

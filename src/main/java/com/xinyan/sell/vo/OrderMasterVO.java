@@ -30,8 +30,8 @@ public class OrderMasterVO {
     private String buyerPhone;
 
     /* 买家地址 */
-    @JsonProperty("buyerAderss")
-    private String buyerAdress;
+    @JsonProperty("buyerAddress")
+    private String buyerAddress;
 
     /* 买家微信openid */
     @JsonProperty("buyerOpenid")

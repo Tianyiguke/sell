@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Data
 @DynamicUpdate
-public class OrderDedailVO {
+public class OrderDetailVO {
 
     /* 订单编号 */
     @JsonProperty("orderId")
@@ -30,8 +30,8 @@ public class OrderDedailVO {
     private String buyerPhone;
 
     /* 买家地址 */
-    @JsonProperty("buyerAderss")
-    private String buyerAdress;
+    @JsonProperty("buyerAddress")
+    private String buyerAddress;
 
     /* 买家微信openid */
     @JsonProperty("buyerOpenid")
@@ -59,6 +59,6 @@ public class OrderDedailVO {
 
     /* 订单详情列表 */
     @JsonProperty("orderDetailList")
-    private List<OrderDedailVO> orderDedailVOList;
+    private List<OrderDetailVO> orderDetailVOList;
 
 }

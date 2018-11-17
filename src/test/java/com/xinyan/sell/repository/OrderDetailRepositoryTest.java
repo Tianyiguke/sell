@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,7 +33,7 @@ public class OrderDetailRepositoryTest {
         orderDetail.setOrderId(KeyUtil.getUUID());
         orderDetail.setProductId("2c2bdf1725284995b4ed3e82cc041e22");
         orderDetail.setProductName("老北京烤鸭");
-        orderDetail.setProductPrice("30");
+        orderDetail.setProductPrice(new BigDecimal("30"));
         orderDetail.setProductQuantity(5);
         orderDetail.setProductIcon("https://f11.baidu.com/it/u=1283627459,2832815830&fm=72");
         final OrderDetail orderdetail = repository.save(orderDetail);

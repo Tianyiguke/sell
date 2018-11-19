@@ -1,7 +1,10 @@
 package com.xinyan.sell.controller;
 
 import com.xinyan.sell.common.SellException;
+import com.xinyan.sell.dto.CardDTO;
+import com.xinyan.sell.dto.OrderDTO;
 import com.xinyan.sell.enums.ResultStatus;
+import com.xinyan.sell.form.OrderForm;
 import com.xinyan.sell.po.OrderDetail;
 import com.xinyan.sell.po.OrderMaster;
 import com.xinyan.sell.service.OrderService;
@@ -12,13 +15,13 @@ import com.xinyan.sell.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import javax.validation.Valid;
+import java.util.*;
 
 /**
  * 不夏
@@ -32,6 +35,49 @@ public class BuyerOrderController {
 
     @Autowired
     private OrderService orderService;
+
+    /**
+     * 创建订单
+     * @return
+     */
+    @RequestMapping("/create")
+    public  ResultVO create(@Valid OrderForm orderForm , BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            log.error("【创建订单】订单参数有误，OrderForm:[]",orderForm);
+            throw new SellException(ResultStatus.ORDER_MSG_HAS_ERROR);
+        }
+
+        /* OrderForm 转 OrderDTO */
+        OrderDTO orderDTO = new OrderDTO();
+        OrderMaster orderMaster = new OrderMaster();
+
+        List<CardDTO> cardDTOList = orderForm.getItems();
+
+        if(cardDTOList.size() == 0){
+            log.error("【创建订单】购物车不能为空");
+            throw new SellException(ResultStatus.ORDER_CARD_IS_NULL);
+        }
+
+        orderMaster.setBuyerOpenid(orderForm.getOpenid());
+        orderMaster.setBuyerName(orderForm.getName());
+        orderMaster.setBuyerPhone(orderForm.getPhone());
+        orderMaster.setBuyerAddress(orderForm.getAddress());
+        orderDTO.setOrderMaster(orderMaster);
+
+        for (CardDTO cardDTO: cardDTOList) {
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setProductId(cardDTO.getProductId());
+            orderDetail.setProductQuantity(cardDTO.getProductQuantity());
+            orderDTO.getOrderDetailList().add(orderDetail);
+        }
+
+        /* 调用业务接口 */
+        OrderDTO resultDTO = orderService.create(orderDTO);
+
+        Map<String,String> map = new HashMap<>();
+        map.put("orderId",resultDTO.getOrderMaster().getOrderId());
+        return ResultVOUtil.success(map);
+    }
 
     /**
      * 买家订单详情

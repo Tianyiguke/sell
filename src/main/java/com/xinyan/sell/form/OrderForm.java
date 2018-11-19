@@ -1,9 +1,10 @@
 package com.xinyan.sell.form;
 
+import com.xinyan.sell.dto.CardDTO;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
  * Administrator
@@ -29,6 +30,6 @@ public class OrderForm<T> {
     private String openid;
 
     /*商品信息*/
-    private T items;
+    private List<CardDTO> items;
 
 }

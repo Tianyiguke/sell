@@ -11,10 +11,8 @@ import lombok.Data;
 @Data
 public class CardDTO {
     /* 商品编号 */
-    @JsonProperty("productId")
     private String productId;
 
     /* 商品数量 */
-    @JsonProperty("productQuantity")
     private Integer productQuantity;
 }

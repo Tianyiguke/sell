@@ -1,5 +1,6 @@
 package com.xinyan.sell.service.impl;
 
+import com.xinyan.sell.common.SellException;
 import com.xinyan.sell.dto.OrderDTO;
 import com.xinyan.sell.po.OrderDetail;
 import com.xinyan.sell.po.OrderMaster;
@@ -110,7 +111,7 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
-    public List<OrderDetail> findDetailByOrderId(String orderId) {
+    public List<OrderDetail> findDetailByOrderId(String orderId) throws SellException {
         return orderDetailRepository.findOrderDetailByOrderId(orderId);
     }
 }

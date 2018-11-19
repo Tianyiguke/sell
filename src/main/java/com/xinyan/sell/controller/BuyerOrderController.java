@@ -1,5 +1,7 @@
 package com.xinyan.sell.controller;
 
+import com.xinyan.sell.common.SellException;
+import com.xinyan.sell.enums.ResultStatus;
 import com.xinyan.sell.po.OrderDetail;
 import com.xinyan.sell.po.OrderMaster;
 import com.xinyan.sell.service.OrderService;
@@ -39,6 +41,10 @@ public class BuyerOrderController {
 
         //订单详情（订单id）
         List<OrderDetail> orderDetailList = orderService.findDetailByOrderId(orderId);
+
+        if(orderDetailList == null){
+            throw new SellException(ResultStatus.ORDER_DETAIL_NOT_EXIST);
+        }
 
         //订单主表（订单id）
         OrderMaster orderMasters = orderService.findOrderMasterById(orderId);

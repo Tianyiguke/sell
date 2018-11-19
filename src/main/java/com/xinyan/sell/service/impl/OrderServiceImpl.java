@@ -3,12 +3,18 @@ package com.xinyan.sell.service.impl;
 import com.xinyan.sell.dto.OrderDTO;
 import com.xinyan.sell.po.OrderDetail;
 import com.xinyan.sell.po.OrderMaster;
+import com.xinyan.sell.po.ProductInfo;
 import com.xinyan.sell.repository.OrderDetailRepository;
 import com.xinyan.sell.repository.OrderMasterRepository;
+import com.xinyan.sell.repository.ProductInfoRepository;
 import com.xinyan.sell.service.OrderService;
+import com.xinyan.sell.utils.KeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,18 +24,56 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService {
     @Autowired
-    OrderMasterRepository orderMasterRepository;
+    private OrderMasterRepository orderMasterRepository;
 
     @Autowired
-    OrderDetailRepository orderDetailRepository;
+    private OrderDetailRepository orderDetailRepository;
+
+    @Autowired
+    private ProductInfoRepository productInfoRepository;
 
     /**
      * 创建订单
      * @param orderDTO
      */
     @Override
-    public void create(OrderDTO orderDTO) {
+    public OrderDTO create(OrderDTO orderDTO) {
 
+        BigDecimal sum = new BigDecimal("0");
+
+        /* 计算订单总额 */
+        for (OrderDetail orderDetail:orderDTO.getOrderDetailList()
+             ) {
+            ProductInfo productInfo = productInfoRepository.findOne(orderDetail.getProductId());
+            if(productInfo.getProductStock().compareTo(orderDetail.getProductQuantity())== -1){
+
+            }else{
+                orderDetail.setDetailId(KeyUtil.getUUID());
+                orderDetail.setProductName(productInfo.getProductName());
+                orderDetail.setProductIcon(productInfo.getProductIcon());
+                orderDetail.setProductPrice(productInfo.getProductPrice());
+                orderDetail.setCreateTime(new Date());
+                sum = sum.add(productInfo.getProductPrice().multiply(new BigDecimal(orderDetail.getProductQuantity()+"")));
+            }
+        }
+        orderDTO.getOrderMaster().setOrderAmount(sum);
+        orderDTO.getOrderMaster().setOrderId(KeyUtil.getUUID());
+        orderDTO.getOrderMaster().setOrderStatus(0);
+        orderDTO.getOrderMaster().setPayStatus(0);
+
+        /* 添加订单主表 */
+        orderMasterRepository.save(orderDTO.getOrderMaster());
+        /* 添加订单详情 */
+        orderDetailRepository.save(orderDTO.getOrderDetailList());
+
+        /* 修改商品库存 */
+        for (OrderDetail orderDetail: orderDTO.getOrderDetailList()
+             ) {
+             ProductInfo productInfo = productInfoRepository.findOne(orderDetail.getProductId());
+             productInfo.setProductStock(productInfo.getProductStock()-orderDetail.getProductQuantity());
+             productInfoRepository.save(productInfo);
+        }
+        return orderDTO;
     }
 
     /**

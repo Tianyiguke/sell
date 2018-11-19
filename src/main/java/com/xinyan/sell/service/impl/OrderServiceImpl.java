@@ -41,6 +41,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderDTO create(OrderDTO orderDTO) {
 
         BigDecimal sum = new BigDecimal("0");
+        String orderId= KeyUtil.getUUID();
 
         /* 计算订单总额 */
         for (OrderDetail orderDetail:orderDTO.getOrderDetailList()
@@ -49,6 +50,7 @@ public class OrderServiceImpl implements OrderService {
             if(productInfo.getProductStock().compareTo(orderDetail.getProductQuantity())== -1){
 
             }else{
+                orderDetail.setOrderId(orderId);
                 orderDetail.setDetailId(KeyUtil.getUUID());
                 orderDetail.setProductName(productInfo.getProductName());
                 orderDetail.setProductIcon(productInfo.getProductIcon());
@@ -58,7 +60,7 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         orderDTO.getOrderMaster().setOrderAmount(sum);
-        orderDTO.getOrderMaster().setOrderId(KeyUtil.getUUID());
+        orderDTO.getOrderMaster().setOrderId(orderId);
         orderDTO.getOrderMaster().setOrderStatus(0);
         orderDTO.getOrderMaster().setPayStatus(0);
 

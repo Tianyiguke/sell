@@ -71,6 +71,7 @@ public class BuyerOrderController {
 
         for (CardDTO cardDTO: cardDTOList) {
             OrderDetail orderDetail = new OrderDetail();
+
             orderDetail.setProductId(cardDTO.getProductId());
             orderDetail.setProductQuantity(cardDTO.getProductQuantity());
             orderDetailList.add(orderDetail);

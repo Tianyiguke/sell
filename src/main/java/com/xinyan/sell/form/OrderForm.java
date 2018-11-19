@@ -1,6 +1,9 @@
 package com.xinyan.sell.form;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * Administrator
@@ -11,12 +14,15 @@ import lombok.Data;
 public class OrderForm<T> {
 
     /*买家姓名*/
+    @NotEmpty(message = "姓名不能为空")
     private String name;
 
     /*买家电话*/
+    @NotEmpty(message = "电话不能为空")
     private String phone;
 
     /*买家地址*/
+    @NotEmpty(message = "地址不能为空")
     private String address;
 
     /*买家微信openid*/

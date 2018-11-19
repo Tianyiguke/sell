@@ -2,6 +2,7 @@ package com.xinyan.sell.service.impl;
 
 import com.xinyan.sell.common.SellException;
 import com.xinyan.sell.dto.OrderDTO;
+import com.xinyan.sell.enums.ResultStatus;
 import com.xinyan.sell.po.OrderDetail;
 import com.xinyan.sell.po.OrderMaster;
 import com.xinyan.sell.po.ProductInfo;
@@ -14,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -112,6 +112,10 @@ public class OrderServiceImpl implements OrderService {
      */
     @Override
     public List<OrderDetail> findDetailByOrderId(String orderId) throws SellException {
-        return orderDetailRepository.findOrderDetailByOrderId(orderId);
+        List<OrderDetail> orderDetailByOrderId = orderDetailRepository.findOrderDetailByOrderId(orderId);
+        if (orderDetailByOrderId.size() == 0){
+            throw  new SellException(ResultStatus.ORDER_DETAIL_NOT_EXIST);
+        }
+        return orderDetailByOrderId;
     }
 }

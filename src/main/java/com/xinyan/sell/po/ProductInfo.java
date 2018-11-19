@@ -50,5 +50,4 @@ public class ProductInfo {
     /*创建时间*/
     private Date createTime;
 
-
 }

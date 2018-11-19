@@ -30,6 +30,6 @@ public class OrderForm<T> {
     private String openid;
 
     /*商品信息*/
-    private List<CardDTO> items;
+    private String items;
 
 }

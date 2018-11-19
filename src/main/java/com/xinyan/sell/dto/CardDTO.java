@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * Administrator
  * 2018/11/19 11:23
- * 订单商品
+ * 订单商品数据
  */
 @Data
 public class CardDTO {

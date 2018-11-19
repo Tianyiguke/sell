@@ -1,5 +1,6 @@
 package com.xinyan.sell.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.xinyan.sell.common.SellException;
 import com.xinyan.sell.dto.CardDTO;
 import com.xinyan.sell.dto.OrderDTO;
@@ -8,6 +9,7 @@ import com.xinyan.sell.form.OrderForm;
 import com.xinyan.sell.po.OrderDetail;
 import com.xinyan.sell.po.OrderMaster;
 import com.xinyan.sell.service.OrderService;
+import com.xinyan.sell.utils.JSONUtil;
 import com.xinyan.sell.utils.ResultVOUtil;
 import com.xinyan.sell.vo.OrderDetailInfoVO;
 import com.xinyan.sell.vo.OrderDetailVO;
@@ -16,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,8 +43,8 @@ public class BuyerOrderController {
      * 创建订单
      * @return
      */
-    @RequestMapping("/create")
-    public  ResultVO create(@Valid OrderForm orderForm , BindingResult bindingResult){
+    @PostMapping("/create")
+    public ResultVO create(@Valid OrderForm orderForm , BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             log.error("【创建订单】订单参数有误，OrderForm:[]",orderForm);
             throw new SellException(ResultStatus.ORDER_MSG_HAS_ERROR);
@@ -51,7 +54,7 @@ public class BuyerOrderController {
         OrderDTO orderDTO = new OrderDTO();
         OrderMaster orderMaster = new OrderMaster();
 
-        List<CardDTO> cardDTOList = orderForm.getItems();
+        List<CardDTO> cardDTOList = JSONUtil.readValue(orderForm.getItems(), new TypeReference<List<CardDTO>>() {});
 
         if(cardDTOList.size() == 0){
             log.error("【创建订单】购物车不能为空");
@@ -77,6 +80,10 @@ public class BuyerOrderController {
         Map<String,String> map = new HashMap<>();
         map.put("orderId",resultDTO.getOrderMaster().getOrderId());
         return ResultVOUtil.success(map);
+    }
+
+    public ResultVO orderList(@RequestParam("openid") String openid){
+        return  null;
     }
 
     /**

@@ -59,6 +59,6 @@ public class OrderDetailVO {
 
     /* 订单详情列表 */
     @JsonProperty("orderDetailList")
-    private List<OrderDetailVO> orderDetailVOList;
+    private List<OrderDetailInfoVO> orderDetailInfoVOList;
 
 }

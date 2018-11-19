@@ -22,4 +22,12 @@ public class ResultVOUtil {
         return resultVO;
     }
 
+    public static ResultVO faild(Object object){
+        ResultVO resultVO = new ResultVO();
+        resultVO.setCode(1);
+        resultVO.setMsg("失败");
+        resultVO.setData(object);
+        return resultVO;
+    }
+
 }

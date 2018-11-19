@@ -42,7 +42,7 @@ public class OrderDetailRepositoryTest {
 
     @Test
     public void findOrderDetailByOrderId(){
-        List<OrderDetail> orderDetailByOrderId = repository.findOrderDetailByOrderId("1ce1fa50e05c49f4b5fbff18af7b3ab0");
+        List<OrderDetail> orderDetailByOrderId = repository.findOrderDetailByOrderId("4eb0429ec6ca4bd1875607f7333b3e67");
         Assert.assertNotNull("未找到订单详情",orderDetailByOrderId);
     }
 

@@ -54,6 +54,7 @@ public class BuyerOrderController {
         /* OrderForm 转 OrderDTO */
         OrderDTO orderDTO = new OrderDTO();
         OrderMaster orderMaster = new OrderMaster();
+        List<OrderDetail> orderDetailList = new ArrayList<>();
 
         List<CardDTO> cardDTOList = JSONUtil.readValue(orderForm.getItems(), new TypeReference<List<CardDTO>>() {});
 
@@ -72,8 +73,10 @@ public class BuyerOrderController {
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setProductId(cardDTO.getProductId());
             orderDetail.setProductQuantity(cardDTO.getProductQuantity());
-            orderDTO.getOrderDetailList().add(orderDetail);
+            orderDetailList.add(orderDetail);
         }
+
+        orderDTO.setOrderDetailList(orderDetailList);
 
         /* 调用业务接口 */
         OrderDTO resultDTO = orderService.create(orderDTO);

@@ -4,6 +4,7 @@ import com.xinyan.sell.po.ProductCategory;
 import com.xinyan.sell.po.ProductInfo;
 import com.xinyan.sell.service.ProductCategoryService;
 import com.xinyan.sell.service.ProductInfoService;
+import com.xinyan.sell.utils.ResultVOUtil;
 import com.xinyan.sell.vo.ProductInfoVO;
 import com.xinyan.sell.vo.ProductVO;
 import com.xinyan.sell.vo.ResultVO;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 /**
  * 不夏
  * 2018/11/14 19:49
- * 买家商品Controller
+ * 买家商品列表 Controller
  */
 @RequestMapping("/buyer/product")
 @RestController
@@ -39,8 +40,8 @@ public class BuyerProductController {
     @RequestMapping("/list")
     public ResultVO list(){
 
-        //商品信息
-        List<ProductInfo> productInfoList = productInfoService.findAll();
+        //商品信息(上架)
+        List<ProductInfo> productInfoList = productInfoService.findByProductStatus(0);
 
         //商品类目
 
@@ -56,7 +57,6 @@ public class BuyerProductController {
 
         List<ProductCategory> productCategoryList = productCategoryService.findAll(categoryTypeList);
         //拼装数据
-        ResultVO resultVO = new ResultVO();
         List<ProductVO> productVOList = new ArrayList<>();
         for(ProductCategory productCategory : productCategoryList){
             ProductVO productVO = new ProductVO();
@@ -75,11 +75,7 @@ public class BuyerProductController {
             productVOList.add(productVO);
         }
 
-        resultVO.setCode(0);
-        resultVO.setMsg("成功");
-        resultVO.setData(productVOList);
-
-        return  resultVO;
+        return ResultVOUtil.success(productVOList);
     }
 
 }

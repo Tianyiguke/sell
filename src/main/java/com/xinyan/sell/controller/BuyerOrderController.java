@@ -9,6 +9,7 @@ import com.xinyan.sell.utils.ResultVOUtil;
 import com.xinyan.sell.vo.OrderDetailInfoVO;
 import com.xinyan.sell.vo.OrderDetailVO;
 import com.xinyan.sell.vo.ResultVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ import java.util.List;
  * 2018/11/17 9:31
  * 买家订单Controller
  */
+@Slf4j
 @RestController
 @RequestMapping("/buyer/order")
 public class BuyerOrderController {
@@ -40,11 +42,15 @@ public class BuyerOrderController {
                                      @RequestParam("orderId") String orderId){
 
         //订单详情（订单id）
-        List<OrderDetail> orderDetailList = orderService.findDetailByOrderId(orderId);
-
-        if(orderDetailList == null){
-            throw new SellException(ResultStatus.ORDER_DETAIL_NOT_EXIST);
+        List<OrderDetail> orderDetailList = new ArrayList<>();
+        try {
+           orderDetailList = orderService.findDetailByOrderId(orderId);
+        }catch (SellException e){
+            log.error(ResultStatus.ORDER_DETAIL_NOT_EXIST.getMessage());
+            return ResultVOUtil.faild(null);
         }
+
+
 
         //订单主表（订单id）
         OrderMaster orderMasters = orderService.findOrderMasterById(orderId);

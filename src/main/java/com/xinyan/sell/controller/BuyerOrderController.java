@@ -43,7 +43,8 @@ public class BuyerOrderController {
     @RequestMapping("/create")
     public  ResultVO create(@Valid OrderForm orderForm , BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            log.error("【创建订单】订单参数有误，OrderForm:[]",orderForm);
+            log.error("【创建订单】订单参数有误，OrderForm:[]"
+                    +bindingResult.getFieldError().getDefaultMessage(),orderForm);
             throw new SellException(ResultStatus.ORDER_MSG_HAS_ERROR);
         }
 

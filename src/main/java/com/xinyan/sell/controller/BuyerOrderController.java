@@ -13,6 +13,7 @@ import com.xinyan.sell.utils.JSONUtil;
 import com.xinyan.sell.utils.ResultVOUtil;
 import com.xinyan.sell.vo.OrderDetailInfoVO;
 import com.xinyan.sell.vo.OrderDetailVO;
+import com.xinyan.sell.vo.OrderMasterVO;
 import com.xinyan.sell.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -86,8 +87,43 @@ public class BuyerOrderController {
         return ResultVOUtil.success(map);
     }
 
-    public ResultVO orderList(@RequestParam("openid") String openid){
-        return  null;
+    /**
+     * 买家订单列表
+     * @param openid
+     * @param page
+     * @param size
+     * @return
+     */
+    @RequestMapping("/list")
+    public ResultVO orderList(@RequestParam("openid") String openid,
+                              @RequestParam("page") String page,
+                              @RequestParam("size") String size){
+        /* 订单列表 */
+        List<OrderMaster> orderMasterList = orderService.findOrderByOpendId(openid);
+
+        List<OrderMasterVO> orderMasterVOList = new ArrayList<>();
+
+        for (OrderMaster orderMaster: orderMasterList) {
+            OrderMasterVO orderMasterVO = new OrderMasterVO();
+            BeanUtils.copyProperties(orderMaster,orderMasterVO);
+            orderMasterVOList.add(orderMasterVO);
+        }
+
+        return  ResultVOUtil.success(orderMasterVOList);
+    }
+
+    /**
+     * 取消订单
+     * @param openid
+     * @param orderId
+     * @return
+     */
+    @RequestMapping("/cancel")
+    public ResultVO cancel(@RequestParam("openid") String openid,
+                           @RequestParam("orderId") String orderId){
+
+        orderService.cancel(orderId);
+        return ResultVOUtil.success(null);
     }
 
     /**

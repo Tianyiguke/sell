@@ -18,10 +18,23 @@ public interface OrderService {
     OrderDTO create(OrderDTO orderDTO);
 
     /**
+     * 根据openid查找订单
+     * @param openId
+     * @return
+     */
+    List<OrderMaster> findOrderByOpendId(String openId);
+
+    /**
      * 订单列表
      * @return
      */
     List<OrderMaster> findOrderList();
+
+    /**
+     * 取消订单
+     * @param orderid
+     */
+    void cancel(String orderid);
 
     /**
      * 查找单个订单

@@ -10,4 +10,8 @@ spring:
     request-context-attribute: request
 server:
   context-path: /sell
+wechat:
+  mpAppId: wxb17d3813443e8403 #微信公众平台AppID
+  mpAppSecret: ff34e395904861c746b23a9a54eefd22 #微信公众平台秘钥
+
 

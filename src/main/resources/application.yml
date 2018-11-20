@@ -6,8 +6,8 @@ spring:
     password: 123456
   jpa:
     show-sql: true
-
+  freemarker:
+    request-context-attribute: request
 server:
   context-path: /sell
-
 

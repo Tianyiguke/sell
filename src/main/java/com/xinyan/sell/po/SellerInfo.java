@@ -20,7 +20,7 @@ public class SellerInfo {
 
     /**  卖家id */
     @Id
-    private Integer id;
+    private String id;
 
     /**  卖家用户名*/
     private String username;

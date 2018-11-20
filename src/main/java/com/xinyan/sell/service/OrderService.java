@@ -3,6 +3,9 @@ package com.xinyan.sell.service;
 import com.xinyan.sell.dto.OrderDTO;
 import com.xinyan.sell.po.OrderDetail;
 import com.xinyan.sell.po.OrderMaster;
+import com.xinyan.sell.vo.OrderDTOVO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -55,4 +58,24 @@ public interface OrderService {
      * @return
      */
     List<OrderDetail> findDetailByOrderId(String orderId);
+
+    /**
+     * 根据OrderId修改订单状态
+     * @param orderId
+     * @return
+     */
+    OrderMaster findUpdateOrderMasterByIdStatus(String orderId);
+
+    /**
+     * 保存订单
+     * @param orderMaster
+     */
+    void findSaveOrderMaster(OrderMaster orderMaster);
+
+    /**
+     * 订单查询(分页)
+     * @param pageRequest
+     * @return
+     */
+    Page<OrderDTOVO> findList(PageRequest pageRequest);
 }

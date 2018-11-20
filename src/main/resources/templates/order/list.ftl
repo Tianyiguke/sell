@@ -57,19 +57,19 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        <#list orderDTOPage.content as orderDTO >
+                                        <#list orderMasterPage.content as orderDTO >
                                         <tr>
                                             <td>${orderDTO.orderId}</td>
                                             <td>${orderDTO.buyerName}</td>
                                             <td>${orderDTO.buyerPhone}</td>
                                             <td>${orderDTO.buyerAddress}</td>
                                             <td>${orderDTO.orderAmount}</td>
-                                            <td>${orderDTO.orderStatus}</td>
-                                            <td>${orderDTO.payStatus}</td>
+                                            <td>${orderDTO.orderStatusStr}</td>
+                                            <td>${orderDTO.payStatusStr}</td>
                                             <td>${orderDTO.createTime}</td>
                                             <td>
                                                 <a class="btn btn-sm btn-outline-info" href="${basePath}/seller/order/detail?orderId=${orderDTO.orderId}">详情</a>
-                                                <#if orderDTO.orderStatus == 0>
+                                                <#if orderDTO.orderStatusStr == "新订单">
                                                 <a class="btn btn-sm btn-outline-danger" href="${basePath}/seller/order/cancel?orderId=${orderDTO.orderId}">取消</a>
                                                 </#if>
                                             </td>
@@ -79,21 +79,21 @@
                                 </table>
                                 <!-- 分页 -->
                                 <ul class="pagination float-right">
-                                        <#if orderDTOPage.first>
+                                        <#if orderMasterPage.first>
                                         <li class="page-item disabled">
-                                            <a class="page-link" href="${basePath}/seller/order/list?page=${orderDTOPage.number}">
+                                            <a class="page-link" href="${basePath}/seller/order/list?page=${orderMasterPage.number}">
                                                 上一页
                                             </a>
                                         </li>
                                         <#else>
                                         <li class="page-item">
-                                            <a class="page-link" href="${basePath}/seller/order/list?page=${orderDTOPage.number}" aria-label="Previous">
+                                            <a class="page-link" href="${basePath}/seller/order/list?page=${orderMasterPage.number}" aria-label="Previous">
                                                 上一页
                                             </a>
                                         </li>
                                         </#if>
-                                        <#list 1..orderDTOPage.totalPages as index>
-                                            <#if orderDTOPage.number == (index - 1)>
+                                        <#list 1..orderMasterPage.totalPages as index>
+                                            <#if orderMasterPage.number == (index - 1)>
                                         <li class="page-item active">
                                             <a class="page-link" href="${basePath}/seller/order/list?page=${index}">${index}</a>
                                         </li>
@@ -103,15 +103,15 @@
                                         </li>
                                             </#if>
                                         </#list>
-                                        <#if orderDTOPage.last>
+                                        <#if orderMasterPage.last>
                                         <li class="page-item disabled">
-                                            <a class="page-link" href="${basePath}/seller/order/list?page=${orderDTOPage.number+1}" aria-label="Next">
+                                            <a class="page-link" href="${basePath}/seller/order/list?page=${orderMasterPage.number+1}" aria-label="Next">
                                                 下一页
                                             </a>
                                         </li>
                                         <#else>
                                         <li class="page-item">
-                                            <a class="page-link" href="${basePath}/seller/order/list?page=${orderDTOPage.number+2}" aria-label="Next">
+                                            <a class="page-link" href="${basePath}/seller/order/list?page=${orderMasterPage.number+2}" aria-label="Next">
                                                 下一页
                                             </a>
                                         </li>

@@ -107,6 +107,7 @@ public class BuyerOrderController {
         for (OrderMaster orderMaster: orderMasterList) {
             OrderMasterVO orderMasterVO = new OrderMasterVO();
             BeanUtils.copyProperties(orderMaster,orderMasterVO);
+            orderMasterVO.setUpdateTime(new Date());
             orderMasterVOList.add(orderMasterVO);
         }
 

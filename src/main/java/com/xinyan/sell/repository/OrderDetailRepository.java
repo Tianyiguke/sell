@@ -18,5 +18,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail,String>
     /*
     *   查询多个订单详情：订单id
     */
-    public List<OrderDetail> findOrderDetailByOrderId(String orderId);
+    List<OrderDetail> findOrderDetailByOrderId(String orderId);
+
+    void deleteOrderDetailByOrderId(String orderId);
 }

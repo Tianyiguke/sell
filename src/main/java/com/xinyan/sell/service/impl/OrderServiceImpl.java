@@ -2,6 +2,7 @@ package com.xinyan.sell.service.impl;
 
 import com.xinyan.sell.common.SellException;
 import com.xinyan.sell.dto.OrderDTO;
+import com.xinyan.sell.enums.OrderStatus;
 import com.xinyan.sell.enums.ResultStatus;
 import com.xinyan.sell.po.OrderDetail;
 import com.xinyan.sell.po.OrderMaster;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -80,12 +82,41 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
+     * 根据openid查找订单
+     * @param openId
+     * @return
+     */
+    @Override
+    public List<OrderMaster> findOrderByOpendId(String openId) {
+        return orderMasterRepository.findOrderMasterByBuyerOpenid(openId);
+    }
+
+    /**
      * 订单列表
      * @return
      */
     @Override
     public List<OrderMaster> findOrderList() {
         return orderMasterRepository.findAll();
+    }
+
+    /**
+     * 取消订单
+     * @param orderid
+     */
+    @Override
+    public void cancel(String orderid) {
+        OrderMaster orderMaster = orderMasterRepository.findOne(orderid);
+        orderMaster.setOrderStatus(OrderStatus.CANCEL.getCode());
+
+        orderMasterRepository.save(orderMaster);
+
+        List<OrderDetail> orderDetailList = orderDetailRepository.findOrderDetailByOrderId(orderid);
+        for (OrderDetail orderDetail:orderDetailList) {
+            ProductInfo productInfo = productInfoRepository.findOne(orderDetail.getProductId());
+            productInfo.setProductStock(productInfo.getProductStock() + orderDetail.getProductQuantity());
+            productInfoRepository.save(productInfo);
+        }
     }
 
     /**

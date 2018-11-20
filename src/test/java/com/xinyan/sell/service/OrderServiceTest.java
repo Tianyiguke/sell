@@ -76,4 +76,9 @@ public class OrderServiceTest {
         orderService.create(orderDTO);
 
     }
+
+    @Test
+    public void cancel(){
+        orderService.cancel("45f84fc9fbd4435b9d7a7d69d94e42aa");
+    }
 }

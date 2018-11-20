@@ -14,8 +14,10 @@ import java.util.List;
 @Data
 public class OrderDTO {
 
+    /* 订单主表 */
     private OrderMaster orderMaster;
 
+    /* 订单详情列表 */
     private List<OrderDetail> orderDetailList;
 
 }

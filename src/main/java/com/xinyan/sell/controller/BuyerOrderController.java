@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.xinyan.sell.common.SellException;
 import com.xinyan.sell.dto.CardDTO;
 import com.xinyan.sell.dto.OrderDTO;
+import com.xinyan.sell.enums.OrderStatus;
 import com.xinyan.sell.enums.ResultStatus;
 import com.xinyan.sell.form.OrderForm;
 import com.xinyan.sell.po.OrderDetail;
@@ -100,7 +101,10 @@ public class BuyerOrderController {
                               @RequestParam("size") String size){
         /* 订单列表 */
         List<OrderMaster> orderMasterList = orderService.findOrderByOpendId(openid);
-
+        if(orderMasterList.size()==0){
+            log.error("该用户没有订单。");
+            throw new SellException(ResultStatus.ORDER_NOT_EXIST);
+        }
         List<OrderMasterVO> orderMasterVOList = new ArrayList<>();
 
         for (OrderMaster orderMaster: orderMasterList) {
@@ -122,9 +126,20 @@ public class BuyerOrderController {
     @RequestMapping("/cancel")
     public ResultVO cancel(@RequestParam("openid") String openid,
                            @RequestParam("orderId") String orderId){
-
-        orderService.cancel(orderId);
-        return ResultVOUtil.success(null);
+        OrderMaster orderMaster = orderService.findOrderMasterById(orderId);
+        if (orderMaster.getOrderStatus() == 0 ){
+            orderService.cancel(orderId);
+            return ResultVOUtil.success(null);
+        }else{
+            switch (orderMaster.getOrderStatus()){
+                case 1:log.error("编号：["+orderId+"]订单"+OrderStatus.CANCEL.getMassage());
+                        break;
+                case 2:log.error("编号：["+orderId+"]订单"+OrderStatus.CANCEL.getMassage());
+                        break;
+                default: log.error("订单状态不存在！");
+            }
+            return ResultVOUtil.faild(null);
+        }
     }
 
     /**

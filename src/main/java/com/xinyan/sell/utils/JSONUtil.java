@@ -19,6 +19,7 @@ public final class JSONUtil {
         }
     }
 
+    /* JSON字符串转List */
     public static <T> T readValue(String jsonstr, TypeReference<T> valueTypeRef){
         try{
             return objectMapper.readValue(jsonstr,valueTypeRef);

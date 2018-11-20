@@ -3,6 +3,7 @@ package com.xinyan.sell.service.impl;
 import com.xinyan.sell.common.SellException;
 import com.xinyan.sell.dto.OrderDTO;
 import com.xinyan.sell.enums.OrderStatus;
+import com.xinyan.sell.enums.PayStatus;
 import com.xinyan.sell.po.OrderDetail;
 import com.xinyan.sell.po.OrderMaster;
 import com.xinyan.sell.po.ProductInfo;
@@ -11,7 +12,12 @@ import com.xinyan.sell.repository.OrderMasterRepository;
 import com.xinyan.sell.repository.ProductInfoRepository;
 import com.xinyan.sell.service.OrderService;
 import com.xinyan.sell.utils.KeyUtil;
+import com.xinyan.sell.vo.OrderDTOVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -145,5 +151,71 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderDetail> findDetailByOrderId(String orderId) throws SellException {
         return orderDetailRepository.findOrderDetailByOrderId(orderId);
+    }
+
+    /**
+     * 根据OrderId修改订单状态
+     * @param orderId
+     * @return
+     */
+    @Override
+    public OrderMaster findUpdateOrderMasterByIdStatus(String orderId) {
+        OrderMaster orderMaster = orderMasterRepository.findOne(orderId);
+        return orderMaster;
+    }
+
+    /**
+     * 保存订单
+     * @param orderMaster
+     */
+    @Override
+    public void findSaveOrderMaster(OrderMaster orderMaster) {
+        orderMasterRepository.save(orderMaster);
+    }
+
+    /**
+     * 查询订单(分页)
+     * @param pageRequest
+     * @return
+     */
+    @Override
+    public Page<OrderDTOVO> findList(PageRequest pageRequest) {
+
+        Page<OrderMaster> orderMasters = orderMasterRepository.findAll(pageRequest);
+        List<OrderDTOVO> orderDTOVOS = new ArrayList<>();
+
+        for(OrderMaster orderMaster : orderMasters){
+            OrderDTOVO orderDTOVO = new OrderDTOVO();
+            BeanUtils.copyProperties(orderMaster,orderDTOVO);
+
+            if(orderDTOVO.getOrderId().equals(orderMaster.getOrderId())){
+                int orderStatus = orderMaster.getOrderStatus();
+                switch (orderStatus){
+                    case 0:
+                        orderDTOVO.setOrderStatusStr(OrderStatus.NEW.getMassage());
+                        break;
+                    case 1:
+                        orderDTOVO.setOrderStatusStr(OrderStatus.FINISHED.getMassage());
+                        break;
+                    case 2:
+                        orderDTOVO.setOrderStatusStr(OrderStatus.CANCEL.getMassage());
+                        break;
+                }
+            }
+            if(orderDTOVO.getOrderId().equals(orderMaster.getOrderId())){
+                int payStatus = orderMaster.getPayStatus();
+                switch (payStatus){
+                    case 0:
+                        orderDTOVO.setPayStatusStr(PayStatus.WAIT.getMessage());
+                        break;
+                    case 1:
+                        orderDTOVO.setPayStatusStr(PayStatus.SUCCESS.getMessage());
+                        break;
+                }
+            }
+            orderDTOVOS.add(orderDTOVO);
+        }
+        Page<OrderDTOVO> orderDTOVOPage = new PageImpl<>(orderDTOVOS, pageRequest, orderMasters.getTotalElements());
+        return orderDTOVOPage;
     }
 }

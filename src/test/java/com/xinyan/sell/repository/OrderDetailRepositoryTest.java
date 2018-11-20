@@ -21,7 +21,7 @@ public class OrderDetailRepositoryTest {
     @Autowired
     private OrderDetailRepository repository;
     @Test
-    public void findone(){
+    public void findOne(){
         OrderDetail orderDetail =repository.findOne(UUID.randomUUID().toString());
         Assert.assertNotNull(orderDetail);
     }
@@ -44,6 +44,11 @@ public class OrderDetailRepositoryTest {
     public void findOrderDetailByOrderId(){
         List<OrderDetail> orderDetailByOrderId = repository.findOrderDetailByOrderId("4eb0429ec6ca4bd1875607f7333b3e67");
         Assert.assertNotNull("未找到订单详情",orderDetailByOrderId);
+    }
+
+    @Test
+    public void findAll(){
+        List<OrderDetail> orderDetails = repository.findAll();
     }
 
 

@@ -20,5 +20,4 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail,String>
     */
     List<OrderDetail> findOrderDetailByOrderId(String orderId);
 
-    void deleteOrderDetailByOrderId(String orderId);
 }

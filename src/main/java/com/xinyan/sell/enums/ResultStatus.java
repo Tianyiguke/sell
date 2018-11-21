@@ -24,7 +24,9 @@ public enum ResultStatus {
     PRODUCT_GET_MSG_ERROR(11,"获取商品参数有误"),
     PRODUCT_GET_AFTER_MSG_ERROR(12,"获取商品修改后参数有误"),
     PRODUCT_UP_MSG_ERROR(13,"上架商品失败"),
-    PRODUCT_DOWN_MSG_ERROR(14,"下架商品失败")
+    PRODUCT_DOWN_MSG_ERROR(14,"下架商品失败"),
+    ORDER_CANCEL_FAIL(15,"订单取消失败"),
+    ORDER_FINISN_FAIL(16,"订单完结失败"),
     ;
 
     private Integer Code;

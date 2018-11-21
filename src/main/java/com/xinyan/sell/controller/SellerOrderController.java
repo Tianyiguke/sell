@@ -1,10 +1,13 @@
 package com.xinyan.sell.controller;
 
+import com.xinyan.sell.common.SellException;
 import com.xinyan.sell.enums.OrderStatus;
+import com.xinyan.sell.enums.ResultStatus;
 import com.xinyan.sell.po.OrderDetail;
 import com.xinyan.sell.po.OrderMaster;
 import com.xinyan.sell.service.OrderService;
 import com.xinyan.sell.vo.OrderDTOVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +23,7 @@ import java.util.Map;
  * Administrator
  * 2018/11/19 0019
  */
+@Slf4j
 @RequestMapping("/seller/order")
 @Controller
 public class SellerOrderController {
@@ -53,7 +57,15 @@ public class SellerOrderController {
     @GetMapping("/detail")
     public String orderDetailList(@RequestParam("orderId") String orderId, Map<String, Object> map){
         List<OrderDetail> detailByOrderId = orderService.findDetailByOrderId(orderId);
+        if (detailByOrderId == null) {
+            log.error("【获取详情订单id失败】", detailByOrderId);
+            throw new SellException(ResultStatus.ORDER_DETAIL_NOT_EXIST);
+        }
         OrderMaster orderMasterById = orderService.findOrderMasterById(orderId);
+        if (orderMasterById == null) {
+            log.error("【获取订单id失败】", orderMasterById);
+            throw new SellException(ResultStatus.ORDER_NOT_EXIST);
+        }
         map.put("detailByOrderId", detailByOrderId);
         map.put("orderMasterById", orderMasterById);
         return "order/detail";
@@ -66,14 +78,20 @@ public class SellerOrderController {
     */
     @GetMapping("/finish")
     public String updateOrderMasterStatusByIdFinish(@RequestParam("orderId") String orderId){
-        OrderMaster orderMasterByIdStatus = orderService.findUpdateOrderMasterByIdStatus(orderId);
+        OrderMaster orderMasterByIdStatus = null;
 
-        if (orderMasterByIdStatus.getOrderStatus().equals(OrderStatus.NEW.getCode())){
-            orderMasterByIdStatus.setOrderStatus(OrderStatus.FINISHED.getCode());
-        } else {
-            orderMasterByIdStatus.setOrderStatus(OrderStatus.NEW.getCode());
+        try{
+             orderMasterByIdStatus = orderService.findUpdateOrderMasterByIdStatus(orderId);
+
+        }catch (SellException e){
+            log.error(ResultStatus.ORDER_FINISN_FAIL.getMessage());
+            return "redirect:list";
         }
-        orderService.findSaveOrderMaster(orderMasterByIdStatus);
+
+        if (orderMasterByIdStatus.getOrderStatus().equals(OrderStatus.NEW.getCode()))
+            orderMasterByIdStatus.setOrderStatus(OrderStatus.FINISHED.getCode());
+
+        orderService.saveOrderMaster(orderMasterByIdStatus);
         return "redirect:list";
     }
 
@@ -86,7 +104,11 @@ public class SellerOrderController {
     public String updateOrderMasterStatusByIdCancel(@RequestParam("orderId") String orderId){
         OrderMaster orderMasterByIdStatus = orderService.findUpdateOrderMasterByIdStatus(orderId);
         orderMasterByIdStatus.setOrderStatus(OrderStatus.CANCEL.getCode());
-        orderService.findSaveOrderMaster(orderMasterByIdStatus);
+        if (orderMasterByIdStatus.getOrderStatus() != OrderStatus.FINISHED.getCode()){
+            log.error("【修改取消订单状态失败】",orderMasterByIdStatus.getOrderStatus());
+            throw new SellException(ResultStatus.ORDER_CANCEL_FAIL);
+        }
+        orderService.saveOrderMaster(orderMasterByIdStatus);
         return "redirect:list";
     }
 }

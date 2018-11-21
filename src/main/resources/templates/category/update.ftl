@@ -28,15 +28,16 @@
                 <div class="span12">
                     <form id="categoryFrom" method="post" action="${basePath}/seller/category/update">
                         <fieldset>
-                            <legend>增加类目</legend>
+                            <legend>修改类目</legend>
                             <label>类目id</label><br>
-                            <input id="categoryId" name="categoryId" type="text"  value="${productCategory.categoryId}"  /> <span class="help-block"></span><br>
+                            <input id="categoryId" name="categoryId" type="text"  value="${productCategory.categoryId}"  /> <span class="help-block"></span><br><br>
                             <label>类目名称</label><br>
-                            <input id="categoryName" name="categoryName" type="text"  value="${productCategory.categoryName}"  /> <span class="help-block"></span><br>
+                            <input id="categoryName" name="categoryName" type="text"  value="${productCategory.categoryName}"  /> <span class="help-block"></span><br><br>
                             <label>类目编号</label><br>
-                            <input id="categoryType" name="categoryType" type="text"   value="${productCategory.categoryType}" /> <span class="help-block"></span>
+                            <input id="categoryType" name="categoryType" type="text"  readonly  value="${productCategory.categoryType}" /> <span class="help-block"></span>
                             <br>
-                            <input type="submit" value="提交">
+                            <br>
+                            <input type="submit" value="修改类目">
                         </fieldset>
                     </form>
                 </div>

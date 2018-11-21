@@ -49,14 +49,14 @@
                                     <tbody>
                                         <#list productInfoPage.content as product>
                                         <tr>
-                                            <td name="productId">${product.productId}</td>
-                                            <td name="productName">${product.productName}</td>
-                                            <td name="productPrice">${product.productPrice}</td>
-                                            <td name="productStock">${product.productStock}</td>
-                                            <td name="productStatus">${product.productStatusMsg}</td>
-                                            <td name="categoryType">${product.categoryTypeMsg}</td>
-                                            <td name="createTime">${product.createTime}</td>
-                                            <td>
+                                            <td class="text-center" name="productId">${product.productId}</td>
+                                            <td class="text-center" name="productName">${product.productName}</td>
+                                            <td class="text-center" name="productPrice">${product.productPrice}</td>
+                                            <td class="text-center" name="productStock">${product.productStock}</td>
+                                            <td class="text-center" name="productStatus">${product.productStatusMsg}</td>
+                                            <td class="text-center" name="categoryType">${product.categoryTypeMsg}</td>
+                                            <td class="text-center" name="createTime">${product.createTime}</td>
+                                            <td class="text-center">
                                                  <#if product.productStatus == 1>
                                                 <a class="btn btn-sm btn-outline-info text-center"   href="${basePath}/seller/product/UpdateStatus?productId=${product.productId}" >上架</a>
                                                  </#if >

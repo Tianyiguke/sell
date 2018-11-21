@@ -43,12 +43,12 @@
                                     <tbody>
                                         <#list productCategoryPage.content as category>
                                         <tr>
-                                            <td>${category.categoryId}</td>
-                                            <td>${category.categoryName}</td>
-                                            <td>${category.categoryType}</td>
-                                            <td>
-                                                <a class="btn btn-sm btn-outline-info" href="${basePath}/seller/category/toUpdate?categoryId=${category.categoryId}" >修改</a>
-                                                <a class="btn btn-sm btn-outline-danger" href="${basePath}/seller/category/delete?categoryId=${category.categoryId}"">删除</a>
+                                            <td class="text-center">${category.categoryId}</td>
+                                            <td class="text-center">${category.categoryName}</td>
+                                            <td class="text-center">${category.categoryType}</td>
+                                            <td class="text-center">
+                                                <a class="btn btn-sm btn-outline-info " href="${basePath}/seller/category/toUpdate?categoryId=${category.categoryId}" >修改</a>
+                                                <a class="btn btn-sm btn-outline-danger " href="${basePath}/seller/category/delete?categoryId=${category.categoryId}"">删除</a>
 
                                             </td>
                                         </tr>

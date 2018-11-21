@@ -30,9 +30,10 @@
                         <fieldset>
                             <legend>增加类目</legend>
                             <label>类目名称</label><br>
-                            <input id="categoryName" name="categoryName" type="text" /> <span class="help-block"></span><br>
+                            <input id="categoryName" name="categoryName" type="text" /> <span class="help-block"></span><br><br>
                             <label>类目编号</label><br>
                             <input id="categoryType" name="categoryType" type="text" /> <span class="help-block"></span>
+                            <br>
                             <br>
                             <input type="submit" value="提交">
                         </fieldset>

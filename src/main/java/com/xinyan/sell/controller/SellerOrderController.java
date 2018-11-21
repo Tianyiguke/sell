@@ -102,12 +102,17 @@ public class SellerOrderController {
      */
     @GetMapping("/cancel")
     public String updateOrderMasterStatusByIdCancel(@RequestParam("orderId") String orderId){
-        OrderMaster orderMasterByIdStatus = orderService.findUpdateOrderMasterByIdStatus(orderId);
-        orderMasterByIdStatus.setOrderStatus(OrderStatus.CANCEL.getCode());
-        if (orderMasterByIdStatus.getOrderStatus() != OrderStatus.FINISHED.getCode()){
-            log.error("【修改取消订单状态失败】",orderMasterByIdStatus.getOrderStatus());
-            throw new SellException(ResultStatus.ORDER_CANCEL_FAIL);
+        OrderMaster orderMasterByIdStatus = null;
+
+        try{
+             orderMasterByIdStatus = orderService.findUpdateOrderMasterByIdStatus(orderId);
+        }catch (SellException e){
+            log.error(ResultStatus.ORDER_CANCEL_FAIL.getMessage());
+            return "redirect:list";
         }
+        if (orderMasterByIdStatus.getOrderStatus().equals(OrderStatus.NEW.getCode()))
+        orderMasterByIdStatus.setOrderStatus(OrderStatus.CANCEL.getCode());
+
         orderService.saveOrderMaster(orderMasterByIdStatus);
         return "redirect:list";
     }

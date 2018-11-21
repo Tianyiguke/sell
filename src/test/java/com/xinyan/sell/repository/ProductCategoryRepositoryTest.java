@@ -38,7 +38,7 @@ public class ProductCategoryRepositoryTest {
     @Test
     public void saveTest(){
         ProductCategory productCategory=new ProductCategory();
-        productCategory.setCategoryName("女神-精");
+        productCategory.setCategoryName("男神-精");
         productCategory.setCategoryType(7);
         ProductCategory category = repository.save(productCategory);
         Assert.assertNotNull("添加商品类目",category);

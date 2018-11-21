@@ -1,5 +1,6 @@
 package com.xinyan.sell.service;
 
+import com.xinyan.sell.dto.ProductInfoDTO;
 import com.xinyan.sell.po.ProductInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +20,7 @@ public interface SellerProductInfoService {
      * @param pageable
      * @return
      */
-    Page<ProductInfo> findAllPage(Pageable pageable);
+    Page<ProductInfoDTO> findAllPage(Pageable pageable);
 
     /**
      * 查询所有商品

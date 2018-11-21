@@ -15,7 +15,17 @@ public enum ResultStatus {
     ORDER_NOT_EXIST(2,"订单不存在"),
     ORDER_DETAIL_NOT_EXIST(3,"订单详情不存在"),
     ORDER_CARD_IS_NULL(4,"购物车为空"),
-    ORDER_MSG_HAS_ERROR(5,"创建订单参数错误");
+    ORDER_MSG_HAS_ERROR(5,"创建订单参数错误"),
+    CATEGORY_ADD_MSG_ERROR(6,"增加类目参数有误"),
+    CATEGORY_GET_MSG_ERROR(7,"获取类目参数有误"),
+    CATEGORY_GET_AFTER_MSG_ERROR(8,"获取类目修改后参数有误"),
+    CATEGORY_DELETE_MSG_ERROR(9,"删除类目失败"),
+    PRODUCT_ADD_MSG_ERROR(10,"增加商品参数有误"),
+    PRODUCT_GET_MSG_ERROR(11,"获取商品参数有误"),
+    PRODUCT_GET_AFTER_MSG_ERROR(12,"获取商品修改后参数有误"),
+    PRODUCT_UP_MSG_ERROR(13,"上架商品失败"),
+    PRODUCT_DOWN_MSG_ERROR(14,"下架商品失败")
+    ;
 
     private Integer Code;
     private String message;

@@ -3,6 +3,7 @@ package com.xinyan.sell.service;
 import com.xinyan.sell.po.ProductCategory;
 import com.xinyan.sell.po.ProductInfo;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -16,10 +17,10 @@ public interface SellerCategoryService {
 
     /**
      * 分页查询所有类目
-     * @param pageable
+     * @param pageRequest
      * @return
      */
-    Page<ProductCategory> findAll(Pageable pageable);
+    Page<ProductCategory> findAll(PageRequest pageRequest);
 
     /**
      * 查询所有类目

@@ -23,4 +23,14 @@ public class SellerCategoryServiceImplTest {
         System.out.println(category);
 
     }
+
+
+    @Test
+    public void save(){
+        ProductCategory productCategory = new ProductCategory();
+        productCategory.setCategoryName("1");
+        productCategory.setCategoryType(1);
+       sellerCategoryService.save(productCategory);
+
+    }
 }

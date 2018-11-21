@@ -1,16 +1,21 @@
 package com.xinyan.sell.service.impl;
 
+
+import com.xinyan.sell.dto.ProductInfoDTO;
 import com.xinyan.sell.enums.ProductStatus;
 import com.xinyan.sell.po.ProductInfo;
 import com.xinyan.sell.repository.SellerProductInfoRepository;
 import com.xinyan.sell.service.SellerProductInfoService;
 import com.xinyan.sell.utils.KeyUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,11 +34,32 @@ public class SellerProductInfoServiceImple implements SellerProductInfoService {
      * @return
      */
     @Override
-    public Page<ProductInfo> findAllPage(Pageable page) {
+    public Page<ProductInfoDTO> findAllPage(Pageable page) {
 
         PageRequest pageRequest = new PageRequest(page.getPageNumber(),page.getPageSize());
-        Page<ProductInfo> SellerProductInfoPage = sellerProductInfoRepository.findAll(pageRequest);
-        return SellerProductInfoPage;
+        Page<ProductInfo> sellerProductInfoPage = sellerProductInfoRepository.findAll(pageRequest);
+
+        List<ProductInfoDTO> productInfoDTOList = new ArrayList<>();
+
+        for(ProductInfo productInfo : sellerProductInfoPage){
+            ProductInfoDTO productInfoDTO = new ProductInfoDTO();
+            BeanUtils.copyProperties(productInfo,productInfoDTO);
+
+            if (productInfoDTO.getProductId().equals(productInfo.getProductId())){
+                int productStatus = productInfo.getProductStatus();
+                if (productStatus == ProductStatus.UP.getCode()){
+                    productInfoDTO.setProductStatusMsg(ProductStatus.UP.getMessage());
+                }else {
+                    productInfoDTO.setProductStatusMsg(ProductStatus.DOWN.getMessage());
+                }
+            }
+
+            productInfoDTOList.add(productInfoDTO);
+        }
+
+        Page<ProductInfoDTO> productInfoDTOPage = new PageImpl<>(productInfoDTOList, page, sellerProductInfoPage.getTotalElements());
+
+        return productInfoDTOPage;
     }
 
     /**

@@ -40,10 +40,16 @@
                             <label>图片  </label><br>
                             <input id="productIcon" name="productIcon" type="text" /> <span class="help-block"></span><br>
                             <label>商品状态</label><br>
-                            <input  name="productStatus" type="radio" checked/> 上架<span class="help-block"></span>
-                            <input  name="productStatus" type="radio" /> 下架<span class="help-block"></span><br>
+                            <input  name="productStatus" value="0" type="radio" checked/> 上架<span class="help-block"></span>
+                            <input  name="productStatus" value="1" type="radio" /> 下架<span class="help-block"></span><br>
+
                             <label>类目编号</label><br>
-                            <input id="categoryType" name="categoryType" type="text" /> <span class="help-block"></span>
+                            <select id="categoryType" name="categoryType"  > <span class="help-block"></span>
+                                  <#list productCategoryList as productCategory>
+                                  <option value="${productCategory.categoryType}">${productCategory.categoryName}</option>
+                                  </#list>
+                            </select>
+
                             <br>
                             <input type="submit" value="提交">
                         </fieldset>

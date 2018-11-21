@@ -45,8 +45,15 @@
                             <label>商品状态</label><br>
                             <input  name="productStatus" type="radio" <#if productInfo.productStatus == 0> checked</#if> value="0"   /> 上架<span class="help-block"></span>
                             <input  name="productStatus" type="radio" <#if productInfo.productStatus == 1> checked</#if> value="1"   /> 下架<span class="help-block"></span><br>
+
                             <label>类目编号</label><br>
-                            <input id="categoryType" name="categoryType" type="text" value="${productInfo.categoryType}"/> <span class="help-block"></span>
+                            <select id="categoryType" name="categoryType"  > <span class="help-block"></span>
+                                  <#list categoryList as productCategory>
+                                  <option value="${productCategory.categoryType}" <#if productCategory.categoryType == productInfo.categoryType > selected </#if>>${productCategory.categoryName}</option>
+                                  </#list>
+                            </select>
+
+
                             <br>
                             <input type="submit" value="提交">
                         </fieldset>

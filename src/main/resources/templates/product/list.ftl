@@ -53,7 +53,7 @@
                                             <td name="productName">${product.productName}</td>
                                             <td name="productPrice">${product.productPrice}</td>
                                             <td name="productStock">${product.productStock}</td>
-                                            <td name="productStatus">${product.productStatus}</td>
+                                            <td name="productStatus">${product.productStatusMsg}</td>
                                             <td name="categoryType">${product.categoryType}</td>
                                             <td name="createTime">${product.createTime}</td>
                                             <td>

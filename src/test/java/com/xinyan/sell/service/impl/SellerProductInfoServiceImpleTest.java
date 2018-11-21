@@ -3,11 +3,14 @@ package com.xinyan.sell.service.impl;
 import com.xinyan.sell.po.ProductInfo;
 import com.xinyan.sell.repository.SellerProductInfoRepository;
 import com.xinyan.sell.service.SellerProductInfoService;
+import com.xinyan.sell.utils.KeyUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.math.BigDecimal;
 
 import static org.junit.Assert.*;
 
@@ -33,6 +36,20 @@ public class SellerProductInfoServiceImpleTest {
 
         System.out.println(productInfo);
 
+    }
+
+    @Test
+    public void save(){
+        ProductInfo productInfo = new ProductInfo();
+        productInfo.setProductId(KeyUtil.getUUID());
+        productInfo.setProductName("辣");
+        productInfo.setProductPrice(new BigDecimal(30));
+        productInfo.setProductStock(100);
+        productInfo.setProductDescription("辣");
+        productInfo.setProductIcon("http");
+        productInfo.setProductStatus(0);
+        productInfo.setCategoryType(6);
+        productInfoRepository.save(productInfo);
     }
 
 }

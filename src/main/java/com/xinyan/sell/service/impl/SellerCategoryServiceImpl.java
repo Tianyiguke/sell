@@ -5,6 +5,7 @@ import com.xinyan.sell.repository.SellerCategoryRepository;
 import com.xinyan.sell.service.SellerCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +22,12 @@ public class SellerCategoryServiceImpl implements SellerCategoryService {
     private SellerCategoryRepository sellerCategoryRepository;
     /**
      * 分页查询所有类目
-     * @param pageable
+     * @param pageRequest
      * @return
      */
     @Override
-    public Page<ProductCategory> findAll(Pageable pageable) {
-        return null;
+    public Page<ProductCategory> findAll(PageRequest pageRequest) {
+        return sellerCategoryRepository.findAll(pageRequest);
     }
 
     /**

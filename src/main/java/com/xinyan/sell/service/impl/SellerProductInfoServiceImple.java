@@ -3,8 +3,11 @@ package com.xinyan.sell.service.impl;
 
 import com.xinyan.sell.dto.ProductInfoDTO;
 import com.xinyan.sell.enums.ProductStatus;
+import com.xinyan.sell.po.ProductCategory;
 import com.xinyan.sell.po.ProductInfo;
+import com.xinyan.sell.repository.SellerCategoryRepository;
 import com.xinyan.sell.repository.SellerProductInfoRepository;
+import com.xinyan.sell.service.SellerCategoryService;
 import com.xinyan.sell.service.SellerProductInfoService;
 import com.xinyan.sell.utils.KeyUtil;
 import org.springframework.beans.BeanUtils;
@@ -28,6 +31,9 @@ public class SellerProductInfoServiceImple implements SellerProductInfoService {
 
     @Autowired
     private SellerProductInfoRepository sellerProductInfoRepository;
+
+    @Autowired
+    private SellerCategoryRepository sellerCategoryRepository;
     /**
      * 分页查询所有商品
      * @param page
@@ -38,6 +44,7 @@ public class SellerProductInfoServiceImple implements SellerProductInfoService {
 
         PageRequest pageRequest = new PageRequest(page.getPageNumber(),page.getPageSize());
         Page<ProductInfo> sellerProductInfoPage = sellerProductInfoRepository.findAll(pageRequest);
+        List<ProductCategory> categoryList = sellerCategoryRepository.findAll();
 
         List<ProductInfoDTO> productInfoDTOList = new ArrayList<>();
 
@@ -53,6 +60,14 @@ public class SellerProductInfoServiceImple implements SellerProductInfoService {
                     productInfoDTO.setProductStatusMsg(ProductStatus.DOWN.getMessage());
                 }
             }
+
+
+            for (ProductCategory productCategory : categoryList){
+                if (productCategory.getCategoryType() == productInfoDTO.getCategoryType()) {
+                    productInfoDTO.setCategoryTypeMsg(productCategory.getCategoryName());
+                }
+            }
+
 
             productInfoDTOList.add(productInfoDTO);
         }

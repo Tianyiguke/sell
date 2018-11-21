@@ -41,7 +41,7 @@
                                         <th class="text-center">单价</th>
                                         <th class="text-center">库存</th>
                                         <th class="text-center">商品状态</th>
-                                        <th class="text-center">类目编号</th>
+                                        <th class="text-center">类目名称</th>
                                         <th class="text-center">创建时间</th>
                                         <th class="text-center">操作</th>
                                     </tr>
@@ -54,7 +54,7 @@
                                             <td name="productPrice">${product.productPrice}</td>
                                             <td name="productStock">${product.productStock}</td>
                                             <td name="productStatus">${product.productStatusMsg}</td>
-                                            <td name="categoryType">${product.categoryType}</td>
+                                            <td name="categoryType">${product.categoryTypeMsg}</td>
                                             <td name="createTime">${product.createTime}</td>
                                             <td>
                                                  <#if product.productStatus == 1>

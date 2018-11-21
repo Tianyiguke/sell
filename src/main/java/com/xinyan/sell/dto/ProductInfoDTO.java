@@ -35,6 +35,9 @@ public class ProductInfoDTO {
     /*类目编号*/
     private Integer categoryType;
 
+    /*类目名字*/
+    private String categoryTypeMsg;
+
     /*创建时间*/
     private Date createTime;
 

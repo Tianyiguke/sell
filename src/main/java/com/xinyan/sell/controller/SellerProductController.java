@@ -82,7 +82,7 @@ public class SellerProductController {
     public String sellerProductAdd(@Valid ProductInfo productInfo, BindingResult bindingResult){
 
         if (productInfo == null){
-            log.error("【增加商品失败】",productInfo);
+            log.error("【增加商品参数有误】",productInfo);
             throw new SellException(ResultStatus.PRODUCT_ADD_MSG_ERROR);
         }
         sellerProductInfoService.save(productInfo);
@@ -151,8 +151,8 @@ public class SellerProductController {
     public String sellerProductUpdateProduct(ProductInfo productInfo){
 
         if (productInfo == null){
-            log.error("【获取商品修改后参数失败】",productInfo);
-            throw new SellException(ResultStatus.CATEGORY_GET_AFTER_MSG_ERROR);
+            log.error("【修改商品状态失败】",productInfo);
+            throw new SellException(ResultStatus.PRODUCT_GET_AFTER_MSG_ERROR);
         }
         sellerProductInfoService.saveUpdateProduct(productInfo);
 

@@ -70,7 +70,7 @@ public interface OrderService {
      * 保存订单
      * @param orderMaster
      */
-    void findSaveOrderMaster(OrderMaster orderMaster);
+    void saveOrderMaster(OrderMaster orderMaster);
 
     /**
      * 订单查询(分页)

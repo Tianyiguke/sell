@@ -164,8 +164,11 @@ public class OrderServiceImpl implements OrderService {
      * @return
      */
     @Override
-    public OrderMaster findUpdateOrderMasterByIdStatus(String orderId) {
+    public OrderMaster findUpdateOrderMasterByIdStatus(String orderId) throws SellException{
         OrderMaster orderMaster = orderMasterRepository.findOne(orderId);
+        if(orderMaster == null){
+            throw new SellException(ResultStatus.ORDER_NOT_EXIST);
+        }
         return orderMaster;
     }
 
@@ -174,7 +177,7 @@ public class OrderServiceImpl implements OrderService {
      * @param orderMaster
      */
     @Override
-    public void findSaveOrderMaster(OrderMaster orderMaster) {
+    public void saveOrderMaster(OrderMaster orderMaster) {
         orderMasterRepository.save(orderMaster);
     }
 

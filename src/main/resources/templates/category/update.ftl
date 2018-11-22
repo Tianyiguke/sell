@@ -37,7 +37,7 @@
                             <input id="categoryType" name="categoryType" type="text"  readonly  value="${productCategory.categoryType}" /> <span class="help-block"></span>
                             <br>
                             <br>
-                            <input type="submit" value="修改类目">
+                            <input class="btn btn-sm btn-outline-info" type="submit" value="修改类目">
                         </fieldset>
                     </form>
                 </div>

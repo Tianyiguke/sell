@@ -55,7 +55,7 @@
 
                             <br>
                             <br>
-                            <input type="submit" value="提交">
+                            <input class="btn btn-sm btn-outline-info" type="submit" value="修改商品">
                         </fieldset>
                     </form>
                 </div>

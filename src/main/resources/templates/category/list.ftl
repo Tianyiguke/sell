@@ -47,8 +47,8 @@
                                             <td class="text-center">${category.categoryName}</td>
                                             <td class="text-center">${category.categoryType}</td>
                                             <td class="text-center">
-                                                <a class="btn btn-sm btn-outline-info " href="${basePath}/seller/category/toUpdate?categoryId=${category.categoryId}" >修改</a>
-                                                <a class="btn btn-sm btn-outline-danger " href="${basePath}/seller/category/delete?categoryId=${category.categoryId}"">删除</a>
+                                                <a class="btn btn-sm btn-outline-info"  href="${basePath}/seller/category/toUpdate?categoryId=${category.categoryId}" >修改</a>
+                                                <a class="btn btn-sm btn-outline-danger" onclick="deleteCategory(${category.categoryId})" >删除</a>
 
                                             </td>
                                         </tr>
@@ -108,6 +108,18 @@
 </div>
 
 
+<script>
+    function deleteCategory(id) {
+        var r = confirm("是否确认删除！！！")
+        if (r == true) {
+            window.location.href = "${basePath}/seller/category/delete?categoryId=" + id;
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+</script>
 <#include "../common/layout.ftl">
 
 <#include "../common/js.ftl">

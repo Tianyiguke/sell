@@ -35,7 +35,7 @@
                             <input id="categoryType" name="categoryType" type="text" /> <span class="help-block"></span>
                             <br>
                             <br>
-                            <input type="submit" value="提交">
+                            <input class="btn btn-sm btn-outline-info" type="submit" value="增加类目">
                         </fieldset>
                     </form>
                 </div>
